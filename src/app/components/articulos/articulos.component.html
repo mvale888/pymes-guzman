@@ -50,7 +50,7 @@
         <tbody>
             <tr *ngFor="let dto of Lista">
                 <td>{{dto.Nombre | uppercase}}</td>
-                <td class="text-right">{{dto.Precio | currency}}</td>
+                <td class="text-right">{{dto.Precio | currency:'$'}}</td>
                 <td class="text-right">{{dto.Stock}}</td>
                 <td>{{GetArticuloFamiliaNombre(dto.IdArticuloFamilia)}}</td>
                 <td>{{dto.FechaAlta| date:'dd/MM/yyyy'}}</td>
@@ -105,12 +105,17 @@
                 Nombre <span class="text-danger">*</span>
             </label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="Nombre"/>
-                <span class="text-danger" *ngIf="FormReg.controls.Nombre.errors 
-      && FormReg.controls.Nombre.errors.required">
+                <input type="text" class="form-control" formControlName="Nombre" 
+                [ngClass]="{'is-invalid': (FormReg.controls.Nombre.touched || submitted)  
+            && FormReg.controls.Nombre.errors}"/>
+                <span class="text-danger" *ngIf="(FormReg.controls.Nombre.touched || submitted) 
+                        && FormReg.controls.Nombre.errors.required">
           Dato requerido.
-      </span>
-
+               </span>
+              <span class="text-danger" *ngIf="
+                       FormReg.controls.Nombre.errors?.minlength || FormReg.controls.Nombre.errors?.maxlength ">
+                    Dato texto, 4 a 55 caracteres.
+              </span>
             </div>
         </div>
 
@@ -120,12 +125,16 @@
                 Precio <span class="text-danger">*</span>
             </label>
             <div class="col-sm-6">
-                <input type="text" name="Precio" class="form-control" formControlName="Precio"/>
-                      <span class="text-danger" *ngIf="FormReg.controls.Precio.errors 
+                <input type="text" name="Precio" class="form-control" formControlName="Precio"
+                [ngClass]="{'is-invalid': (FormReg.controls.Precio.touched || submitted)  
+            && FormReg.controls.Precio.errors}"/>
+                  <span class="text-danger" *ngIf="(FormReg.controls.Precio.touched || submitted)  
       && FormReg.controls.Precio.errors.required">
           Dato requerido.
-      </span>
-
+                 </span>
+                  <span class="text-danger" *ngIf="FormReg.controls.Precio.errors?.pattern">
+                    Dato numérico, 1 a 7 dígitos.
+                  </span>
             </div>
         </div>
 
@@ -136,12 +145,16 @@
                 Stock <span class="text-danger">*</span>
             </label>
             <div class="col-sm-6">
-                <input type="text" name="Stock" class="form-control" formControlName="Stock"/>
-                <span class="text-danger" *ngIf="FormReg.controls.Stock.errors 
+                <input type="text" name="Stock" class="form-control" formControlName="Stock"
+                [ngClass]="{'is-invalid': (FormReg.controls.Stock.touched || submitted)  
+            && FormReg.controls.Stock.errors}"/>
+                <span class="text-danger" *ngIf="(FormReg.controls.Stock.touched || submitted)  
       && FormReg.controls.Stock.errors.required">
           Dato requerido.
-      </span>
-
+                </span>
+                <span class="text-danger" *ngIf="FormReg.controls.Stock.errors?.pattern">
+                    Dato numérico, 0 a 100 dígitos.
+                  </span>
 
             </div>
         </div>
@@ -152,8 +165,10 @@
                 Codigo De Barra <span class="text-danger">*</span>
             </label>
             <div class="col-sm-6">
-                <input type="text" name="CodigoDeBarra" class="form-control" formControlName="CodigoDeBarra" />
-                <span class="text-danger" *ngIf="FormReg.controls.CodigoDeBarra.errors 
+                <input type="text" name="CodigoDeBarra" class="form-control" formControlName="CodigoDeBarra"
+                [ngClass]="{'is-invalid': (FormReg.controls.CodigoDeBarra.touched || submitted)  
+            && FormReg.controls.CodigoDeBarra.errors}"/>
+                <span class="text-danger" *ngIf="(FormReg.controls.CodigoDeBarra.touched || submitted)  
       && FormReg.controls.CodigoDeBarra.errors.required">
               Dato requerido.
       </span>
@@ -180,11 +195,16 @@
                 Fecha de alta <span class="text-danger">*</span>
             </label>
             <div class="col-sm-6">
-                <input class="form-control" name="FechaAlta" formControlName="FechaAlta"/>
-                <span class="text-danger" *ngIf="FormReg.controls.FechaAlta.errors 
+                <input class="form-control" name="FechaAlta" formControlName="FechaAlta"
+                [ngClass]="{'is-invalid': (FormReg.controls.FechaAlta.touched || submitted)  
+            && FormReg.controls.FechaAlta.errors}"/>
+                <span class="text-danger" *ngIf="(FormReg.controls.FechaAlta.touched || submitted) 
       && FormReg.controls.FechaAlta.errors.required">
               Dato requerido.
-      </span>
+               </span>
+                <span class="text-danger" *ngIf="FormReg.controls.FechaAlta.errors?.pattern">
+                    Dato fecha, formato dd/mm/aaaa.
+                </span>
             </div>
         </div>
 
@@ -204,7 +224,12 @@
     <!-- Botones Grabar, Cancelar/Volver' -->
     <div class="row justify-content-center">
         <button type="button" class="btn btn-primary" (click)="Grabar()" *ngIf=" AccionABMC == 'A'  || AccionABMC == 'M' ">
-            <span class="fas fa-check"></span> Grabar
+            <span class="fas fa-check"></span> 
+            <span class="text-danger" *ngIf="(FormReg.controls.Nombre.touched || submitted) 
+            && FormReg.controls.Nombre.errors?.required">Dato requerido.
+            </span>
+
+            Grabar
         </button>
         &nbsp;
         <button type="button" class="btn btn-warning" (click)="Volver()">
@@ -213,7 +238,7 @@
     </div>
 
     <!--texto: Revisar los datos ingresados...-->
-    <div id="divMsjFormRegistro" class="row alert alert-danger" *ngIf= 'false'>
+    <div id="divMsjFormRegistro" class="row alert alert-danger" *ngIf="FormReg.invalid">
         <span class="fas fa-exclamation-sign"></span>{{Mensajes['RD']}}
     </div>
 

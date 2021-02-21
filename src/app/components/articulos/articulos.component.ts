@@ -12,6 +12,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 })
 export class ArticulosComponent implements OnInit {
   Titulo = "Articulos";
+  submitted: boolean = false;
   TituloAccionABMC = {
     A: "(Agregar)",
     B: "(Eliminar)",
@@ -55,12 +56,14 @@ export class ArticulosComponent implements OnInit {
     });
     this.FormReg = this.formBuilder.group({
       IdArticulo: [null],
-      Nombre: [null,  [Validators.required]  ],
-      Precio: [null, [Validators.required] ],
-      Stock: [null, [Validators.required] ],
-      CodigoDeBarra: [ null,  [Validators.required] ],
+      Nombre: [null,  [Validators.required, Validators.minLength(4), Validators.maxLength(55)]],
+      Precio: [null, [Validators.required, Validators.pattern("[0-9]{1,7}")]],
+      Stock: [null, [Validators.required, Validators.pattern("[0-9]{1,10}")]],
+      CodigoDeBarra: [null, [Validators.required, Validators.pattern("[0-9]{13}")]],
       IdArticuloFamilia: [null, [Validators.required] ],
-      FechaAlta: [ null,  [ Validators.required ] ],
+      FechaAlta: [ null,  [Validators.required,
+                           Validators.pattern("(0[1-9]|[12][0-9]|3[01])[-/](0[1-9]|1[012])[-/](19|20)[0-9]{2}")
+                          ]],
       Activo: [false]
 
     });
@@ -77,6 +80,9 @@ export class ArticulosComponent implements OnInit {
   Agregar() {
     this.AccionABMC = "A";
     this.FormReg.reset({Activo: true});
+    this.submitted = false;
+    this.FormReg.markAsUntouched();
+
   }
 
   // Buscar segun los filtros, establecidos en FormReg
@@ -118,11 +124,15 @@ export class ArticulosComponent implements OnInit {
       return;
     }
     this.BuscarPorId(Dto, "M");
+    this.submitted = false;
+    this.FormReg.markAsUntouched();
+
   }
 
   // grabar tanto altas como modificaciones
   Grabar() {
-   
+            
+         if (this.FormReg.invalid) {   return; }
     //hacemos una copia de los datos del formulario, para modificar la fecha y luego enviarlo al servidor
     const itemCopy = { ...this.FormReg.value };
  
