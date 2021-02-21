@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import {APP_BASE_HREF} from '@angular/common';  
 
 
+
+
 import { AppComponent } from './app.component';
 import { HelloComponent } from './hello.component';
 import { InicioComponent } from './components/inicio/inicio.component';
@@ -13,7 +15,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { MockArticulosFamiliasService } from './mock-articulos-familias.service';
 import { ArticulosComponent } from './components/articulos/articulos.component';
 import { MockArticulosService } from './mock-articulos.service';
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports:      [
@@ -25,7 +27,9 @@ import { ReactiveFormsModule } from "@angular/forms";
       { path: 'articulosfamilias', component: ArticulosFamiliasComponent },
       { path: 'articulos', component: ArticulosComponent },
        ]),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
+    
     ],
   declarations: [ AppComponent, HelloComponent, InicioComponent, ArticulosFamiliasComponent, MenuComponent, ArticulosComponent ],
   bootstrap:    [ AppComponent ],

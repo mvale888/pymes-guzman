@@ -55,13 +55,14 @@ export class ArticulosComponent implements OnInit {
     });
     this.FormReg = this.formBuilder.group({
       IdArticulo: [null],
-      Nombre: [null],
-      Precio: [null],
-      Stock: [null],
-      CodigoDeBarra: [null],
-      IdArticuloFamilia: [null],
-      FechaAlta: [null],
+      Nombre: [null,  [Validators.required]  ],
+      Precio: [null, [Validators.required] ],
+      Stock: [null, [Validators.required] ],
+      CodigoDeBarra: [ null,  [Validators.required] ],
+      IdArticuloFamilia: [null, [Validators.required] ],
+      FechaAlta: [ null,  [ Validators.required ] ],
       Activo: [false]
+
     });
 
     this.GetFamiliasArticulos();

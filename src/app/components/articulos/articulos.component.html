@@ -106,6 +106,11 @@
             </label>
             <div class="col-sm-6">
                 <input type="text" class="form-control" formControlName="Nombre"/>
+                <span class="text-danger" *ngIf="FormReg.controls.Nombre.errors 
+      && FormReg.controls.Nombre.errors.required">
+          Dato requerido.
+      </span>
+
             </div>
         </div>
 
@@ -116,6 +121,11 @@
             </label>
             <div class="col-sm-6">
                 <input type="text" name="Precio" class="form-control" formControlName="Precio"/>
+                      <span class="text-danger" *ngIf="FormReg.controls.Precio.errors 
+      && FormReg.controls.Precio.errors.required">
+          Dato requerido.
+      </span>
+
             </div>
         </div>
 
@@ -127,6 +137,11 @@
             </label>
             <div class="col-sm-6">
                 <input type="text" name="Stock" class="form-control" formControlName="Stock"/>
+                <span class="text-danger" *ngIf="FormReg.controls.Stock.errors 
+      && FormReg.controls.Stock.errors.required">
+          Dato requerido.
+      </span>
+
 
             </div>
         </div>
@@ -138,7 +153,10 @@
             </label>
             <div class="col-sm-6">
                 <input type="text" name="CodigoDeBarra" class="form-control" formControlName="CodigoDeBarra" />
-
+                <span class="text-danger" *ngIf="FormReg.controls.CodigoDeBarra.errors 
+      && FormReg.controls.CodigoDeBarra.errors.required">
+              Dato requerido.
+      </span>
             </div>
         </div>
 
@@ -163,6 +181,10 @@
             </label>
             <div class="col-sm-6">
                 <input class="form-control" name="FechaAlta" formControlName="FechaAlta"/>
+                <span class="text-danger" *ngIf="FormReg.controls.FechaAlta.errors 
+      && FormReg.controls.FechaAlta.errors.required">
+              Dato requerido.
+      </span>
             </div>
         </div>
 
