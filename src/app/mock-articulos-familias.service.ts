@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
+import { of } from "rxjs";
+import { ArticulosFamilias } from "./articulo-familia";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class MockArticulosFamiliasService {
-
-  constructor() { }
-
+  constructor() {}
+  get() {
+    return of(ArticulosFamilias);
+  }
 }
