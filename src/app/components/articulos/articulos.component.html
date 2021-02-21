@@ -41,6 +41,7 @@
                 <th class="text-center">Nombre</th>
                 <th class="text-center">Precio</th>
                 <th class="text-center">Stock</th>
+                <th class="text-center">Familia</th>
                 <th class="text-center">Fecha de Alta</th>
                 <th class="text-center">Activo</th>
                 <th class="text-center text-nowrap">Acciones</th>
@@ -51,6 +52,7 @@
                 <td>{{dto.Nombre | uppercase}}</td>
                 <td class="text-right">{{dto.Precio | currency}}</td>
                 <td class="text-right">{{dto.Stock}}</td>
+                <td>{{GetArticuloFamiliaNombre(dto.IdArticuloFamilia)}}</td>
                 <td>{{dto.FechaAlta| date:'dd/MM/yyyy'}}</td>
                 <td>{{dto.Activo ? 'SI' : 'NO'}}</td>
                 <td class="text-center text-nowrap">
